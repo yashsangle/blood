@@ -1,9 +1,9 @@
-from flask import Flask, render_template, flash, redirect, request, url_for, session, logging
+from flask import Flask, render_template
 # from flask_mysqldb import MySQL
-from wtforms import Form, StringField, TextAreaField, PasswordField, validators, SelectField
+#from wtforms import Form, StringField, TextAreaField, PasswordField, validators, SelectField
 # from passlib.hash import sha256_crypt
-import random
-from functools import wraps
+#import random
+#from functools import wraps
 
 
 app = Flask(__name__)
@@ -25,8 +25,8 @@ def index():
     return render_template('home.html')
 
 
-@app.route('/contact', methods=['GET', 'POST'])
-def contact():
+#@app.route('/contact', methods=['GET', 'POST'])
+#def contact():
     # if request.method == 'POST':
     #     bgroup = request.form["bgroup"]
     #     bpackets = request.form["bpackets"]
@@ -48,24 +48,24 @@ def contact():
     #     flash('Your request is successfully sent to the Blood Bank', 'success')
     #     return redirect(url_for('index'))
 
-    return render_template('contact.html')
+ #   return render_template('contact.html')
 
 
-class RegisterForm(Form):
-    name = StringField(
-        'Name', [validators.DataRequired(), validators.Length(min=1, max=25)])
-    email = StringField(
-        'Email', [validators.DataRequired(), validators.Length(min=10, max=50)])
-    password = PasswordField('Password', [
-        validators.DataRequired(),
-        validators.EqualTo('confirm', message='Password do not match')
-    ])
-    confirm = PasswordField('Confirm Password')
+#class RegisterForm(Form):
+ #   name = StringField(
+  #      'Name', [validators.DataRequired(), validators.Length(min=1, max=25)])
+   # email = StringField(
+    #    'Email', [validators.DataRequired(), validators.Length(min=10, max=50)])
+    #password = PasswordField('Password', [
+     #   validators.DataRequired(),
+      #  validators.EqualTo('confirm', message='Password do not match')
+   # ])
+    #confirm = PasswordField('Confirm Password')
 
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    form = RegisterForm(request.form)
+#@app.route('/register', methods=['GET', 'POST'])
+#def register():
+  #  form = RegisterForm(request.form)
     # if request.method == 'POST' and form.validate():
     #     name = form.name.data
     #     email = form.email.data
@@ -85,13 +85,13 @@ def register():
 
     #     return redirect(url_for('login'))
 
-    return render_template('register.html', form=form)
+ #   return render_template('register.html', form=form)
 
 # login page
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+#@app.route('/login', methods=['GET', 'POST'])
+#def login():
     # if request.method == 'POST':
     #     # Get Form Fields
     #     e_id = request.form["e_id"]
@@ -125,31 +125,31 @@ def login():
     #         error = 'Employee ID not found'
     #         return render_template('login.html', error=error)
 
-    return render_template('login.html')
+ #   return render_template('login.html')
 
 # Check if user logged in
 
 
-def is_logged_in(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if 'logged_in' in session:
-            return f(*args, **kwargs)
-        else:
-            flash('Unauthorized, Please login!', 'danger')
-            return redirect(url_for('login'))
-    return wrap
+#def is_logged_in(f):
+ #   @wraps(f)
+  #  def wrap(*args, **kwargs):
+   #     if 'logged_in' in session:
+    #       return f(*args, **kwargs)
+     #   else:
+     #       flash('Unauthorized, Please login!', 'danger')
+      #      return redirect(url_for('login'))
+    #return wrap
 
 # Logout
 
 
-@app.route('/logout')
-@is_logged_in
-def logout():
-    session.clear()
-    flash('You are now logged out', 'success')
-    return redirect(url_for('index'))
-
+#@app.route('/logout')
+#@is_logged_in
+#def logout():
+ #   session.clear()
+  #  flash('You are now logged out', 'success')
+   # return redirect(url_for('index'))
+   
 
 # @app.route('/dashboard')
 # @is_logged_in
@@ -167,9 +167,9 @@ def logout():
 #     cur.close()
 
 
-@app.route('/donate', methods=['GET', 'POST'])
-@is_logged_in
-def donate():
+#@app.route('/donate', methods=['GET', 'POST'])
+#@is_logged_in
+#def donate():
     # if request.method == 'POST':
     #     # Get Form Fields
     #     dname = request.form["dname"]
@@ -193,7 +193,7 @@ def donate():
     #     flash('Success! Donor details Added.', 'success')
     #     return redirect(url_for('donorlogs'))
 
-    return render_template('donate.html')
+ #   return render_template('donate.html')
 
 
 # @app.route('/donorlogs')
@@ -212,9 +212,9 @@ def donate():
     # cur.close()
 
 
-@app.route('/bloodform', methods=['GET', 'POST'])
-@is_logged_in
-def bloodform():
+#@app.route('/bloodform', methods=['GET', 'POST'])
+#@is_logged_in
+#def bloodform():
     # if request.method == 'POST':
     #     # Get Form Fields
     #     d_id = request.form["d_id"]
@@ -238,7 +238,7 @@ def bloodform():
     #     flash('Success! Donor Blood details Added.', 'success')
     #     return redirect(url_for('dashboard'))
 
-    return render_template('bloodform.html')
+ #   return render_template('bloodform.html')
 
 
 # @app.route('/notifications')
@@ -257,9 +257,9 @@ def bloodform():
 #     cur.close()
 
 
-@app.route('/notifications/accept')
-@is_logged_in
-def accept():
+#@app.route('/notifications/accept')
+#@is_logged_in
+#def accept():
     # cur = mysql.connection.cursor()
     # cur.execute("SELECT N_PACKETS FROM NOTIFICATIONS")
     # packets = cur.fetchone()
@@ -274,16 +274,16 @@ def accept():
     # cur.execute("UPDATE BLOODBANK SET TOTAL_PACKETS = TOTAL_PACKETS-%s WHERE B_GROUP = %s",(packet[-1],group[-1]))
     # result = "ACCEPTED"
     # cur.execute("INSERT INTO NOTIFICATIONS(RESULT) VALUES(%s)",(result))
-    flash('Request Accepted', 'success')
-    return redirect(url_for('notifications'))
+ #   flash('Request Accepted', 'success')
+  #  return redirect(url_for('notifications'))
 
 
-@app.route('/notifications/decline')
-@is_logged_in
-def decline():
-    msg = 'Request Declined'
-    flash(msg, 'danger')
-    return redirect(url_for('notifications'))
+#@app.route('/notifications/decline')
+#@is_logged_in
+#def decline():
+ #   msg = 'Request Declined'
+  #  flash(msg, 'danger')
+   # return redirect(url_for('notifications'))
 
 
 if __name__ == '__main__':
